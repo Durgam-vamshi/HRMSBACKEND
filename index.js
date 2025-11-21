@@ -8,18 +8,18 @@ const { errorHandler } = require("./middlewares/errorHandler");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
-      "https://hrmsfrontend-5gyx.vercel.app",
-    ],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "http://127.0.0.1:5173",
+//       "https://hrmsfrontend-5gyx.vercel.app",
+//     ],
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//   })
+// );
 
 app.use(bodyParser());
 
