@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("express").json;
@@ -8,23 +9,16 @@ const { errorHandler } = require("./middlewares/errorHandler");
 
 const app = express();
 
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:5173",
-//       "http://127.0.0.1:5173",
-//       "https://hrmsfrontend-5gyx.vercel.app",
-//     ],
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-//   })
-// );
+// Parse JSON body
+app.use(bodyParser());
 
-app.use(bodyParser())
-
-
-app.use(cors())
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 const PORT = process.env.PORT || 5000;
 
@@ -37,7 +31,7 @@ const PORT = process.env.PORT || 5000;
   const authRouter = require("./routes/auth")(db);
   app.use("/api/auth", authRouter);
 
-  // protected routes
+  // Protected routes
   app.use("/api", authMiddleware);
 
   const dashboardRoutes = require("./routes/dashboard");
@@ -60,10 +54,11 @@ const PORT = process.env.PORT || 5000;
   app.use("/api/teams", teamsRouter);
   app.use("/api/logs", logsRouter);
 
+  // Global error handler
   app.use(errorHandler);
 
   app.get("/", (req, res) => {
-    res.send("HRMS Backend is running ");
+    res.send("HRMS Backend is running");
   });
 
   app.listen(PORT, () => {
