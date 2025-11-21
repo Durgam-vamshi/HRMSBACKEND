@@ -21,7 +21,10 @@ const app = express();
 //   })
 // );
 
-app.use(bodyParser());
+app.use(bodyParser())
+
+
+app.use(cors())
 
 const PORT = process.env.PORT || 5000;
 
